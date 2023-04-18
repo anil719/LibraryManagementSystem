@@ -1,0 +1,18 @@
+package com.example.LMS.Dto.ResponseDto;
+
+import com.example.LMS.entities.Author;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class AuthorsWithGivenAgeResponseDto {
+
+    private List<Author> authorList;
+}
