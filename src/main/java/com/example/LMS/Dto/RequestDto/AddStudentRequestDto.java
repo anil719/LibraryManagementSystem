@@ -15,5 +15,6 @@ public class AddStudentRequestDto {
     private String name;
     private int age;
     private String mobile;
+    private String email;
     private Department department;
 }

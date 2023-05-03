@@ -22,5 +22,5 @@ public interface AuthorService  {
 
    public List<GetBookResponseDto> getAllBooksByAuthorId(int id) throws Exception;
 
-   //public List<AuthorResponseDto> getAuthorsWithGivenAge(int age);
+   public List<AuthorResponseDto> getAuthorsWithGivenAge(int age);
 }

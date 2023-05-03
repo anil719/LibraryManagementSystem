@@ -21,8 +21,11 @@ public class Student {
     private int id;
     private String name;
     private int age;
+
+    @Column(unique = true)
     private String mobile;
 
+    private String email;
     @Enumerated(EnumType.STRING)
     private Department department;
 

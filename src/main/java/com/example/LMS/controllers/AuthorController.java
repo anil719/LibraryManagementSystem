@@ -39,9 +39,9 @@ public class AuthorController {
         return authorService.getAuthorByEmail(email);
     }
 
-//    @GetMapping("/authors_with_given_age")
-//    public List<AuthorResponseDto> getAuthorsWithGivenAge(@RequestParam("age")int age){
-//        return authorService.getAuthorsWithGivenAge(age);
-//    }
+    @GetMapping("/authors_with_given_age")
+    public List<AuthorResponseDto> getAuthorsWithGivenAge(@RequestParam("age")int age){
+        return authorService.getAuthorsWithGivenAge(age);
+    }
 
 }

@@ -13,14 +13,15 @@ import com.example.LMS.repositories.BookRepository;
 import com.example.LMS.repositories.CardRepository;
 import com.example.LMS.repositories.TransactionRepository;
 import com.example.LMS.services.TransactionService;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-public class TransactionServiceInterfaceImpl implements TransactionService {
+public class TransactionServiceImpl implements TransactionService {
     @Autowired
     TransactionRepository transactionRepository;
 
@@ -29,6 +30,9 @@ public class TransactionServiceInterfaceImpl implements TransactionService {
 
     @Autowired
     CardRepository cardRepository;
+
+    @Autowired
+    private JavaMailSender emailSender;
 
     @Override
     public IssueBookResponseDto issueBook(IssueBookRequestDto issueBookRequestDto) throws Exception {
@@ -41,6 +45,7 @@ public class TransactionServiceInterfaceImpl implements TransactionService {
         }
         catch (Exception e){
             transactions.setTransactionStatus(TransactionStatus.FAIL);
+            transactionRepository.save(transactions);
             throw new Exception("Card not Valid !!!");
         }
 
@@ -53,6 +58,7 @@ public class TransactionServiceInterfaceImpl implements TransactionService {
         }
         catch (Exception e){
             transactions.setTransactionStatus(TransactionStatus.FAIL);
+            transactionRepository.save(transactions);
             throw new Exception("Invalid bookId !!!");
         }
 
@@ -85,6 +91,15 @@ public class TransactionServiceInterfaceImpl implements TransactionService {
         issueBookResponseDto.setTransactionNumber(transactions.getTransactionNum());
         issueBookResponseDto.setTransactionStatus(transactions.getTransactionStatus());
 
+        String text = "Congrats!  " + card.getStudent().getName() + " you have been issued the book " + book.getTitle() ;
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("anil1472.t@gmail.com");
+        message.setTo(card.getStudent().getEmail());
+        message.setSubject("Vizag Public Library : " + "Book Issued");
+        message.setText(text);
+        emailSender.send(message);
+
         return issueBookResponseDto;
 
     }
@@ -102,6 +117,7 @@ public class TransactionServiceInterfaceImpl implements TransactionService {
         }
         catch (Exception e){
             transactions.setTransactionStatus(TransactionStatus.FAIL);
+            transactionRepository.save(transactions);
             throw new Exception("Card not Valid !!!");
         }
 
@@ -114,6 +130,7 @@ public class TransactionServiceInterfaceImpl implements TransactionService {
         }
         catch (Exception e){
             transactions.setTransactionStatus(TransactionStatus.FAIL);
+            transactionRepository.save(transactions);
             throw new Exception("Invalid bookId !!!");
         }
         transactions.setBook(book);

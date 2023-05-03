@@ -28,8 +28,8 @@ public class StudentServiceImpl implements StudentService {
         student.setName(addStudentRequestDto.getName());
         student.setAge(addStudentRequestDto.getAge());
         student.setMobile(addStudentRequestDto.getMobile());
+        student.setEmail(addStudentRequestDto.getEmail());
         student.setDepartment(addStudentRequestDto.getDepartment());
-
         Card card = new Card();
         card.setStatus(Status.ACTIVE);
         card.setValidTill("2024-04-16");
@@ -84,6 +84,7 @@ public class StudentServiceImpl implements StudentService {
         std.setId(id);
         std.setAge(student.getAge());
         std.setMobile(student.getMobile());
+        std.setEmail(student.getEmail());
         std.setDepartment(student.getDepartment());
         studentRepository.save(std);
         return "student updated" ;
@@ -100,6 +101,7 @@ public class StudentServiceImpl implements StudentService {
             studentFindResponseDto.setAge(student.getAge());
             studentFindResponseDto.setDepartment(student.getDepartment());
             studentFindResponseDto.setMobile(student.getMobile());
+            studentFindResponseDto.setEmail(student.getEmail());
 
             CardResponseDto cardResponseDto = new CardResponseDto();
             cardResponseDto.setId(student.getCard().getId());
@@ -128,6 +130,7 @@ public class StudentServiceImpl implements StudentService {
             getStudentResponseDto.setName(s.getName());
             getStudentResponseDto.setDepartment(s.getDepartment());
             getStudentResponseDto.setMobile(s.getMobile());
+            getStudentResponseDto.setEmail(s.getEmail());
             getStudentResponseDto.setAge(s.getAge());
             findAllStudents.add(getStudentResponseDto);
         }

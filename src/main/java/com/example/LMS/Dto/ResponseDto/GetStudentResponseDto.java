@@ -20,5 +20,6 @@ public class GetStudentResponseDto {
    private int age;
    private Department department;
    private String mobile;
+   private String email;
 
 }

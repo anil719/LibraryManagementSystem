@@ -81,22 +81,29 @@ public class AuthorServiceImpl implements AuthorService {
 
         AuthorResponseDto authorResponseDto = new AuthorResponseDto();
         authorResponseDto.setName(author.getName());
+        authorResponseDto.setId(author.getId());
+        authorResponseDto.setEmail(author.getEmail());
         authorResponseDto.setAge(author.getAge());
         return authorResponseDto ;
     }
-//
-//    @Override
-//    public List<AuthorResponseDto> getAuthorsWithGivenAge(int age) {
-//        List<Author> authors = authorRepository.getAuthorsWithGivenAge(age);
-//        List<AuthorResponseDto> ans = new ArrayList<>();
-//        for(Author author : authors){
-//            AuthorResponseDto authorResponseDto = new AuthorResponseDto();
-//            authorResponseDto.setName(author.getName());
-//            authorResponseDto.setAge(author.getAge());
-//            authorResponseDto.setEmail(author.getEmail());
-//            authorResponseDto.setId(author.getId());
-//            ans.add(authorResponseDto);
-//        }
-//        return ans;
-//    }
+
+    @Override
+    public List<AuthorResponseDto> getAuthorsWithGivenAge(int age) {
+        List<Author> authors = authorRepository.findAll();
+        List<Author> authorsWithRequiredAge = new ArrayList<>();
+        for(Author author : authors){
+            if(author.getAge() == age) authorsWithRequiredAge.add(author);
+        }
+
+        List<AuthorResponseDto> ans = new ArrayList<>();
+        for(Author author : authorsWithRequiredAge){
+            AuthorResponseDto authorResponseDto = new AuthorResponseDto();
+            authorResponseDto.setName(author.getName());
+            authorResponseDto.setAge(author.getAge());
+            authorResponseDto.setEmail(author.getEmail());
+            authorResponseDto.setId(author.getId());
+            ans.add(authorResponseDto);
+        }
+        return ans;
+    }
 }
